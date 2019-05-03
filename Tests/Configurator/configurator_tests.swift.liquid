@@ -1,5 +1,5 @@
 //
-//  {{ prefix }}{{ module_info.name }}{{ module_info.file_name }}
+//  {{ module_info.file_name }}
 //  {{ module_info.project_name }}
 //
 //  Created by {{ developer.name }} on {{ date }}.
@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import {{ module_info.project_name }}
 
 class {{ module_info.name }}ModuleConfiguratorTests: XCTestCase {
 
@@ -23,12 +24,13 @@ class {{ module_info.name }}ModuleConfiguratorTests: XCTestCase {
     func testConfigureModuleForViewController() {
 
         //given
-        let configurator = {{ module_info.name }}ModuleConfigurator()
-
-        //when
-        let viewController = configurator.createModule()
+        let configurator = {{ module_info.name }}Configurator()
 
         //then
+        let vc = configurator.createModule()
+        XCTAssertTrue(vc is {{ module_info.name }}ViewController, "vc is not {{ module_info.name }}ViewController")
+
+        let viewController: {{ module_info.name }}ViewController = vc as! {{ module_info.name }}ViewController
         XCTAssertNotNil(viewController.output, "{{ module_info.name }}ViewController is nil after configuration")
         XCTAssertTrue(viewController.output is {{ module_info.name }}Presenter, "output is not {{ module_info.name }}Presenter")
 
